@@ -1,9 +1,7 @@
-'''
-Um sistema de agendamentos que tem a funções de juntar o prestador de serviços e os clientes.
-
+'''Projeto Final - Sistema de Agendamento
 
 '''
- 
+
 
 import tkinter as tk
 from tkinter import messagebox
@@ -25,6 +23,20 @@ def carregar_dados(arquivo):
 def salvar_dados(arquivo, dados):
     with open(arquivo, "w", encoding="utf-8") as f:
         json.dump(dados, f, indent=4, ensure_ascii=False)
+
+# Funções para importar/exportar todos os arquivos JSON
+def importar_arquivos_json():
+    global usuarios, servicos, agendamentos
+    usuarios = carregar_dados(USUARIOS_FILE)
+    servicos = carregar_dados(SERVICOS_FILE)
+    agendamentos = carregar_dados(AGENDAMENTOS_FILE)
+    messagebox.showinfo("Importação", "Arquivos JSON importados com sucesso!")
+
+def exportar_arquivos_json():
+    salvar_dados(USUARIOS_FILE, usuarios)
+    salvar_dados(SERVICOS_FILE, servicos)
+    salvar_dados(AGENDAMENTOS_FILE, agendamentos)
+    messagebox.showinfo("Exportação", "Todos os dados foram exportados para JSON com sucesso!")
 
 # Carregar dados iniciais
 usuarios = carregar_dados(USUARIOS_FILE)
@@ -127,6 +139,10 @@ def abrir_menu():
 
     tk.Label(root, text=f"Menu - {usuario_logado['username']} ({usuario_logado['tipo']})", font=("Arial", 14), fg="white", bg="#3399ff").pack(pady=10)
 
+    # Botões de Importar/Exportar JSON
+    tk.Button(root, text="Importar Arquivos JSON", command=importar_arquivos_json).pack(pady=5)
+    tk.Button(root, text="Exportar Arquivos JSON", command=exportar_arquivos_json).pack(pady=5)
+
     if usuario_logado["tipo"] == "prestador":
         tk.Label(root, text="Adicionar Serviço:", fg="white", bg="#3399ff").pack()
         entry_servico = tk.Entry(root)
@@ -159,10 +175,4 @@ def abrir_menu():
         tk.Label(root, text="Seus agendamentos:", fg="white", bg="#3399ff").pack(pady=10)
         for chave, ag in agendamentos.items():
             if ag["cliente"] == usuario_logado["username"]:
-                tk.Label(root, text=f"{ag['data_hora']} - {ag['servico']} (Prestador: {servicos[ag['servico']]['prestador']})", fg="white", bg="#3399ff").pack()
-                tk.Button(root, text="Cancelar", command=lambda c=chave: cancelar_agendamento(c)).pack()
-
-    tk.Button(root, text="Sair", command=abrir_login).pack(pady=20)
-
-abrir_login()
-root.mainloop()
+                tk.Label (root, text=f"{ag['data_hora']} - {ag['servico']} (Prestador: {servicos[ag['servico']]['prestador']})", fg="white", bg="#3399ff").pack()
