@@ -107,11 +107,6 @@ def exportar_arquivos_json():
     salvar_dados(SERVICOS_FILE, servicos)
     salvar_dados(AGENDAMENTOS_FILE, agendamentos)
     messagebox.showinfo("Exportação", "Todos os dados foram exportados para JSON com sucesso!")
-    
-    tk.Button(root, text="Exportar Arquivos JSON", command=exportar_arquivos_json).pack(pady=10)
-
-
-
 
 
 
@@ -136,6 +131,7 @@ def abrir_login():
     tk.Button(root, text="Entrar", command=lambda: login(entry_user.get(), entry_pass.get())).pack(pady=10)
     tk.Button(root, text="Registrar Cliente", command=lambda: registrar_usuario("cliente", entry_user.get(), entry_pass.get())).pack()
     tk.Button(root, text="Registrar Prestador", command=lambda: registrar_usuario("prestador", entry_user.get(), entry_pass.get())).pack()
+    tk.Button(root, text="Exportar Arquivos JSON", command=exportar_arquivos_json).pack(pady=10)
 
 def abrir_menu():
     for widget in root.winfo_children():
