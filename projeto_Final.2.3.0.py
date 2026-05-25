@@ -1,5 +1,5 @@
 '''
-
+# Projeto final - Sistema de Agendamento 
 
 ''' 
 
@@ -11,12 +11,12 @@ from tkinter import messagebox
 import json
 import os
 
-# Arquivos JSON
+
 USUARIOS_FILE = "usuarios.json"
 SERVICOS_FILE = "servicos.json"
 AGENDAMENTOS_FILE = "agendamentos.json"
 
-# Funções utilitárias para JSON
+
 def carregar_dados(arquivo):
     if os.path.exists(arquivo):
         with open(arquivo, "r", encoding="utf-8") as f:
@@ -27,14 +27,14 @@ def salvar_dados(arquivo, dados):
     with open(arquivo, "w", encoding="utf-8") as f:
         json.dump(dados, f, indent=4, ensure_ascii=False)
 
-# Carregar dados iniciais
+
 usuarios = carregar_dados(USUARIOS_FILE)
 servicos = carregar_dados(SERVICOS_FILE)
 agendamentos = carregar_dados(AGENDAMENTOS_FILE)
 
 usuario_logado = None
 
-# Funções de autenticação
+
 def registrar_usuario(tipo, username, senha):
     if username in usuarios:
         messagebox.showerror("Erro", "Usuário já existe!")
@@ -52,7 +52,7 @@ def login(username, senha):
     else:
         messagebox.showerror("Erro", "Usuário ou senha inválidos!")
 
-# Funções de serviços
+
 def adicionar_servico(nome_servico):
     if usuario_logado and usuario_logado["tipo"] == "prestador":
         servicos[nome_servico] = {"prestador": usuario_logado["username"]}
