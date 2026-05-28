@@ -1,4 +1,3 @@
-Aqui está um modelo de README para o seu projeto de sistema de agendamento inspirado na XP Investimentos:
 
 ---
 
